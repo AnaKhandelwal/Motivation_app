@@ -5,7 +5,7 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
-API_KEY = "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"
+API_KEY = "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"
 
 @app.route("/generate", methods=["POST"])
 def generate_motivation():
