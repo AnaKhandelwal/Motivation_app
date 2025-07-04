@@ -1,25 +1,34 @@
-🌟 Mood-Based Motivation Quote Generator
-This web application helps you get an uplifting, short motivational quote tailored to your current mood, using Generative AI.
+# 🌟 Mood-Based Motivation Quote Generator
 
-Built with Python, Flask, and OpenRouter’s free API.
+This web application helps you get an **uplifting, short motivational quote** tailored to your current mood, using Generative AI.
 
-✨ Features
-✅ Mood-Based Quotes
-Select or enter your mood (e.g., anxious, focused, stressed) and instantly receive a personalized, encouraging quote.
+Built with **Python**, **Flask**, and **OpenRouter’s free API**.
 
-✅ Simple, Clean Interface
+---
+
+## ✨ Features
+
+✅ **Mood-Based Quotes**  
+Select or enter your mood (e.g., *anxious*, *focused*, *stressed*) and instantly receive a personalized, encouraging quote.
+
+✅ **Simple, Clean Interface**  
 Easy-to-use web interface accessible to anyone.
 
-✅ Fast & Free
+✅ **Fast & Free**  
 Powered by OpenRouter’s Mistral-7B model (no paid API required).
 
-✅ Privacy-Friendly
+✅ **Privacy-Friendly**  
 No data stored or shared.
 
-🛠️ Technologies Used
-Python 🐍
+---
 
-Flask 🌐
+## 🛠️ Technologies Used
 
-HTML / CSS / JavaScript 🎨
+- **Python** 🐍
+- **Flask** 🌐
+- **HTML / CSS / JavaScript** 🎨
+- **OpenRouter API** ✨
+
+
+
 
