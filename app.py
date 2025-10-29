@@ -1,16 +1,23 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-API_KEY = "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"
+API_KEY = os.getenv("API_KEY")
 
 @app.route("/generate", methods=["POST"])
 def generate_motivation():
     data = request.get_json()
     mood = data.get("mood", "")
+
+    if not API_KEY:
+        return jsonify({"error": "API key not set"}), 500
 
     headers = {
         "Content-Type": "application/json",
@@ -18,29 +25,34 @@ def generate_motivation():
     }
 
     payload = {
-    "model": "openrouter/cypher-alpha:free",
-    "messages": [
-        {
-            "role": "system",
-            "content": "You are a motivational coach who always replies with a short quote."
-        },
-        {
-            "role": "user",
-            "content": f"I'm feeling {mood}. Give me a motivational quote."
-        }
-    ]
-}
+        "model": "mistralai/mistral-7b-instruct",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a motivational coach who always replies with a short quote."
+            },
+            {
+                "role": "user",
+                "content": f"I'm feeling {mood}. Give me a motivational quote."
+            }
+        ]
+    }
 
-    response = requests.post(
-        "https://openrouter.ai/api/v1/chat/completions",
-        headers=headers,
-        json=payload
-    )
+    try:
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers=headers,
+            json=payload
+        )
+        response.raise_for_status()
+        result = response.json()
+        quote = result["choices"][0]["message"]["content"]
+        return jsonify({"quote": quote})
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
 
-    if response.status_code != 200:
-        return jsonify({"error": response.text}), response.status_code
-
-    return jsonify(response.json())
 
 if __name__ == "__main__":
     app.run(port=5000)
